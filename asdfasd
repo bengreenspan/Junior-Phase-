@@ -1,0 +1,100 @@
+const express = require('express');
+const { static } = express;
+const path = require('path');
+
+const app = express();
+
+app.use('/dist', express.static(path.join(__dirname, 'dist')));
+
+app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
+
+app.get('/api/students', async(req, res, next)=> {
+    try {
+      res.send(await Student.findAll());
+    }
+    catch(ex){
+      next(ex);
+    }
+  });
+
+
+  app.get('/api/campuses', async(req, res, next)=> {
+    try {
+      res.send(await Campus.findAll());
+    }
+    catch(ex){
+      next(ex);
+    }
+  });
+
+  const init = async()=> {
+    try {
+      await syncAndSeed();
+      const port = process.env.PORT || 8000;
+      app.listen(port, ()=> console.log(`listening on port ${port}`));
+    }
+    catch(ex){
+      console.log(ex);
+    }
+  }
+
+
+  const Sequelize = require('sequelize');
+  const { STRING } = Sequelize;
+  const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/omakase_db');
+
+
+  const Student = conn.define('student', {
+    name: STRING 
+  });
+  
+  const Campus = conn.define('campus', {
+      name: {
+          type: STRING,
+          unique: true
+      }
+    });
+
+
+Student.belongsTo(Campus);
+Campus.hasMany(Student)
+
+ const syncAndSeed = async()=> {
+    await conn.sync({ force: true });
+    const campuses = ['Blue_Mountain_State', 'South_Harmon_Institute_of_Technology', 'Faber_College'];
+    const [Blue_Mountain_State, South_Harmon_Institute_of_Technology, Faber_College] = await Promise.all(campuses.map(_name => Campus.create({ name: _name} )));
+    const studentNames = [{ name: 'Isaac', schoolId: Blue_Mountain_State.id}, { name: 'Maeve', schoolId: Faber_College.id} ];
+    await Promise.all(studentNames.map(name => Student.create({ name: name.name, campus: name.schoolId })));
+
+
+  //   await Promise.all([
+  //     Campus.create({ name: 'South Harmon Institute of Technology' }),
+  //     Campus.create({ name: 'Faber College' }),
+  //     Campus.create({ name: 'Blue Mountain State' }),
+  // ])
+  //   await Promise.all([
+  //    Student.create({ name: 'Bluto', campusId: Blue_Mountain_State.id }),
+  //    Student.create({ name: 'Otter', campusId: South_Harmon_Institute_of_Technology.id  }),
+  //    Student.create({ name: 'Boon', campusId: Faber_College.id  }),
+  //    Student.create({ name: 'poop', campusId: Faber_College.id  }),
+  
+  // ]);
+
+  // const syncAndSeed = async() => {
+  //   await conn.sync({ force: true });
+  //   const schoolNames = [ 'mit', 'harvard', 'ucla', 'ccny', 'brown', 'apex tech' ];
+  
+  //   const [ mit, harvard, ucla, ccny, br88own, apexTech ] = await Promise.all(schoolNames.map(_name => School.create({ name: _name} )));
+  
+  //   const studentNames = [{ firstName: 'Isaac', lastName: 'Kerns', email: 'isaackerns@gmail.com', gpa: 3.75, schoolId: harvard.id}, { firstName: 'Maeve', lastName: 'Smith', email: 'msmith@gmail.com', gpa: 3.99, schoolId: harvard.id} ];
+  //   await Promise.all(studentNames.map(name => Student.create({ firstName: name.firstName, lastName: name.lastName, email: name.email, gpa: name.gpa, school: name.school })));
+  // };
+  
+
+
+
+
+       
+  };
+
+init();
