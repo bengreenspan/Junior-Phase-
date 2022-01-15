@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 const Campuses = ({campuses}) => {
-    
     return ( 
         <ul>
             
@@ -12,7 +11,7 @@ const Campuses = ({campuses}) => {
               return(
                     <li key={ campus.id}>
                         <Link to={`/campuses/${campus.id}`} >
-                       {campus.name}  
+                       {campus.campusName}  
                        </Link >
                        &nbsp; 
                        Total Enrollment is  &nbsp;

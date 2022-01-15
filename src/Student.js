@@ -13,12 +13,12 @@ const Student = ({students, match: { params: {id}}}) => {
         <ul>
          
          <h1>{student.name}</h1>
-        <h4> {student.name} attends &nbsp;    
+        <h4> {student.name} {student.lastName} attends &nbsp;    
         <Link to={`/campuses/${student.campus.id}`} >
-                   {student.campus.name}
+                   {student.campus.campusName}
                        </Link >
          </h4>
-
+<pre> contact him at {student.email} </pre>
      </ul>
     )
 }
