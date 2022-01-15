@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { destroyCampus } from './store';
 
-const Campuses = ({campuses}) => {
+const Campuses = ({campuses, destroy}) => {
     return ( 
         <ul>
             
@@ -16,7 +17,7 @@ const Campuses = ({campuses}) => {
                        &nbsp; 
                        Total Enrollment is  &nbsp;
                         {campus.students.length}
-                    
+                        <button onClick={()=> destroy(campus)}>Unaccredit</button> 
                     </li>
               );
             })
@@ -25,8 +26,11 @@ const Campuses = ({campuses}) => {
     )
 }
 
-
-
 export default connect(
-    state => state
+    state => state,
+        (dispatch, otherProps)=> {
+          return {
+              destroy: (campus)=> dispatch(destroyCampus(campus, history))
+          }
+      }
 )(Campuses);

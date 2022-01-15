@@ -13,6 +13,7 @@ const Students = ({students, destroy}) => {
                     <Link to={`/students/${student.id}`} >
                    {student.name} 
                    </Link >  attends &nbsp;   
+                
                            <Link to={`/campuses/${student.campus.id}`} >
                    {student.campus.campusName}
                        </Link >
@@ -28,10 +29,14 @@ const Students = ({students, destroy}) => {
 }
 
 export default connect(
-    state => state,
-        (dispatch)=> {
-          return {
-              destroy: (student)=> dispatch(destroyStudent(student))
-          }
-      }
+  state => state,
+      (dispatch)=> {
+        return {
+            destroy: (student)=> 
+            dispatch(destroyStudent
+          //   console.log
+              (student)
+              )
+        }
+    }
 )(Students);

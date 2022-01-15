@@ -31,7 +31,7 @@ app.get('/api/students', async(req, res, next)=> {
 
   app.delete('/api/students/:id', async(req, res, next)=> {
     try {
-      const student = await Student.findById(req.params.id);
+      const student = await Student.findByPk(req.params.id);
       await student.destroy();
       res.status(204);
     }
@@ -63,7 +63,7 @@ app.get('/api/students', async(req, res, next)=> {
 
   app.delete('/api/campuses/:id', async(req, res, next)=> {
     try {
-      const campus = await Campus.findById(req.params.id);
+      const campus = await Campus.findByPk(req.params.id);
       await campus.destroy();
       res.status(204);
     }

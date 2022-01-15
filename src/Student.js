@@ -7,8 +7,6 @@ const Student = ({students, match: { params: {id}}}) => {
   if(!student){
     return null;
 }
-  {console.log(student)}
-
       return (
         <ul>
          
