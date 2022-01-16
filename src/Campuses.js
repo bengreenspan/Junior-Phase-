@@ -28,7 +28,7 @@ const Campuses = ({campuses, destroy}) => {
 
 export default connect(
     state => state,
-        (dispatch, otherProps)=> {
+        (dispatch, {history})=> {
           return {
               destroy: (campus)=> dispatch(destroyCampus(campus, history))
           }

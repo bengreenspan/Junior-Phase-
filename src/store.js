@@ -77,19 +77,21 @@ const createCampus = (name)=> {
   };
 };
 
-const destroyStudent = (student, history)=> {
+const destroyStudent = (student)=> {
   return async(dispatch)=> {
-  await axios.delete(`/api/students/${student.id}`)
   dispatch(_destroyStudent(student));
-  history.push('/users')
+  await axios.delete(`/api/students/${student.id}`)
+ 
+  // history.push('/')
+
   };
 };
 
-const destroyCampus = (campus, history)=> {
+const destroyCampus = (campus)=> {
   return async(dispatch)=> {
-    await axios.delete(`/api/campuses/${campus.id}`)
     dispatch(_destroyCampus(campus));
-    history.push('/campuses')
+    await axios.delete(`/api/campuses/${campus.id}`)
+
     //history not pushing
   };
 };

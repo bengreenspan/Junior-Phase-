@@ -28,15 +28,19 @@ const Students = ({students, destroy}) => {
     )
 }
 
+const mapStateToProps = (  state => state) 
+const mapDispatchToProps =  (dispatch, {history})=> {
+  return {
+      destroy: (student)=> 
+      dispatch(
+        destroyStudent
+      // console.log
+        (student, history)
+        )
+  }
+}
+
 export default connect(
-  state => state,
-      (dispatch)=> {
-        return {
-            destroy: (student)=> 
-            dispatch(destroyStudent
-          //   console.log
-              (student)
-              )
-        }
-    }
+  mapStateToProps, mapDispatchToProps
+     
 )(Students);
