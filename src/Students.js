@@ -14,9 +14,14 @@ const Students = ({students, destroy}) => {
                    {student.name} 
                    </Link >  attends &nbsp;   
                 
-                           <Link to={`/campuses/${student.campus.id}`} >
-                   {student.campus.campusName}
-                       </Link >
+
+
+                   {student.campus ? <Link to={`/campuses/${student.campus.id}`}>
+                   {student.campus.campusName}</Link >
+                    : 'a disaccredited university'}
+
+
+
                        &nbsp;
                        <button onClick={()=> destroy(student)}>Expell</button> 
                 </li>

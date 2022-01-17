@@ -8,16 +8,17 @@ const Student = ({students, match: { params: {id}}}) => {
     return null;
 }
       return (
-        <ul>
+    <ul>
+      <h1>{student.name}</h1>
+        <h4> {student.name} {student.lastName} attends &nbsp;   
          
-         <h1>{student.name}</h1>
-        <h4> {student.name} {student.lastName} attends &nbsp;    
-        <Link to={`/campuses/${student.campus.id}`} >
-                   {student.campus.campusName}
-                       </Link >
-         </h4>
-<pre> contact him at {student.email} </pre>
-     </ul>
+        <div>
+        <Link to={`/campuses/${student.campus.id}`}>
+                   {student.campus.campusName}</Link >
+        </div>
+      </h4>
+      <pre> contact him at {student.email} </pre>
+    </ul>
     )
 }
 
