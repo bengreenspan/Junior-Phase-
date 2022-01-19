@@ -11,7 +11,9 @@ class CreateStudent extends Component {
             lastName: '',
             email: '',
             campus: '',
-            error: ''
+            error: '',
+            imageURL: '',
+            gpa: ''
         };
         this.onChange = this.onChange.bind(this)
         this.onSave = this.onSave.bind(this)
@@ -26,11 +28,12 @@ class CreateStudent extends Component {
        onSave(ev){
         ev.preventDefault();
         this.props.createStudent({...this.state});
+        console.log(this.state)
     
     }
 
     render(){
-        const { name, lastName, email, campus, error } = this.state
+        const { name, lastName, email, campus, imageURL, gpa, error } = this.state
         const { onChange, onSave} = this
         return (
             <div>
@@ -40,14 +43,11 @@ class CreateStudent extends Component {
                 !!error  && JSON.stringify(error, null, 2)
             }
             </pre>
-        
-    
-
-
-            
             <input name='name' value={ name} onChange={ onChange} placeholder="First Name"/> <br />
             <input name='lastName' value={ lastName} onChange={ onChange} placeholder="Last Name"/>  <br />
             <input name='email' value={ email} onChange={ onChange} placeholder="Email" /> <br />
+            <input name='imageURL' value={ imageURL} onChange={ onChange} placeholder="Profile Picture URL" /> <br />
+            <input name='gpa' value={ gpa} onChange={ onChange} placeholder="Grade Point Average" /> <br />
             <select value={campus} name='campus' onChange={ onChange}>
                 <option value=''>Select Campus </option> 
             {this.props.campuses.map((campus) => (
@@ -73,16 +73,5 @@ const mapDispatchToProps = (dispatch) => ({
     createStudent: (student)=> dispatch(createStudent(student))
 });
 
-export default connect(  (state => state), mapDispatchToProps)(CreateStudent)
+export default connect((state => state), mapDispatchToProps)(CreateStudent)
 
-//     null,
-//     (dispatch)=> {
-//         return {
-//             createStudent: (student) => 
-//            dispatch(createStudent
-//             //console.log
-//             (student)
-//             )
-//         }
-//     } 
-// )(CreateStudent);

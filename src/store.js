@@ -82,8 +82,6 @@ const destroyStudent = (student)=> {
   return async(dispatch)=> {
   dispatch(_destroyStudent(student));
   await axios.delete(`/api/students/${student.id}`)
- 
-  // history.push('/')
 
   };
 };
@@ -92,8 +90,6 @@ const destroyCampus = (campus)=> {
   return async(dispatch)=> {
     dispatch(_destroyCampus(campus));
     await axios.delete(`/api/campuses/${campus.id}`)
-
-    //history not pushing
   };
 };
 

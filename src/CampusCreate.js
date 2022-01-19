@@ -9,6 +9,8 @@ class CreateCampus extends Component {
         this.state = {
             campusName: '',
             campusAddress: '',
+            campusImageURL: '',
+            description: ''
         };
         this.onChange = this.onChange.bind(this)
         this.onSave = this.onSave.bind(this)
@@ -32,7 +34,7 @@ class CreateCampus extends Component {
     }
 
     render(){
-        const { campusName, campusAddress} = this.state
+        const { campusName, campusAddress, campusImageURL, description} = this.state
         const { onChange, onSave} = this
         return (
             <div>
@@ -45,6 +47,8 @@ class CreateCampus extends Component {
             
             <input name='campusName' value={ campusName} onChange={ onChange} placeholder="Campus Name"/> <br />
             <input name='campusAddress' value={ campusAddress} onChange={ onChange} placeholder="Campus Address"/>  <br />
+            <input name='campusImageURL' value={ campusImageURL} onChange={ onChange} placeholder="Campus Image URL"/>  <br />
+            <input name='description' value={ description} onChange={ onChange} placeholder="Description"/>  <br />
             <button disabled={!campusName || !campusAddress} >Build the Institute! </button>
         </form>
         <pre>
