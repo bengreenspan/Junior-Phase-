@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { destroyCampus } from './store';
+import CampusCreate from './CampusCreate';
 
 const Campuses = ({campuses, destroy}) => {
     return ( 
@@ -15,13 +16,14 @@ const Campuses = ({campuses, destroy}) => {
                        {campus.campusName}  
                        </Link >
                        &nbsp; 
-                       Total Enrollment is  &nbsp;
-                        {campus.students.length}
-                        <button onClick={()=> destroy(campus)}>Unaccredit</button> 
+                       {campus.students ? `Total Enrollment is ${campus.students.length}` : 'Total Enrollment is 0'}
+                    <button onClick={()=> destroy(campus)}>Unaccredit</button> 
                     </li>
               );
             })
           }    
+                    <h4>Create education</h4>
+     <CampusCreate />
      </ul>
     )
 }

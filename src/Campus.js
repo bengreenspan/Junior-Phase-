@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Campus = ({campuses, match: {params: {id}}}) => {
     const campus = campuses.find(campus => campus.id === id);
  if(!campus){
-      return null;
+      return 'Sorry the Campus you are looking for is unreachable';
   }
     return (
         <ul>

@@ -2,6 +2,8 @@ import React from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {destroyStudent} from './store'
+import StudentCreate from "./StudentCreate"
+
 
 const Students = ({students, destroy}) => {
     return (
@@ -13,22 +15,17 @@ const Students = ({students, destroy}) => {
                     <Link to={`/students/${student.id}`} >
                    {student.name} 
                    </Link >  attends &nbsp;   
-                
-
-
                    {student.campus ? <Link to={`/campuses/${student.campus.id}`}>
                    {student.campus.campusName}</Link >
                     : 'a disaccredited university'}
-
-
-
                        &nbsp;
                        <button onClick={()=> destroy(student)}>Expell</button> 
                 </li>
               );
             })
           }    
-    
+          <h4>Enroll a student</h4>
+     <StudentCreate />
      </ul>
     )
 }

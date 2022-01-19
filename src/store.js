@@ -63,19 +63,20 @@ const loadCampuses = ()=> {
   };
 };
 
-const createStudent = (name)=> {
+const createStudent = (student)=> {
   return async(dispatch)=> {
-    const student = (await axios.post('/api/student', {name})).data;
-    dispatch(_createStudent(student));
+    const { data: createdStudent }  = await axios.post('/api/students', student);
+    dispatch(_createStudent(createdStudent));
   };
 };
 
-const createCampus = (name)=> {
+const createCampus = (campus)=> {
   return async(dispatch)=> {
-    const campus = (await axios.post('/api/campus', {name})).data;
-    dispatch(_createCampus(campus));
+    const { data: createdCampus }  = await axios.post('/api/campuses', campus);
+    dispatch(_createCampus(createdCampus));
   };
 };
+
 
 const destroyStudent = (student)=> {
   return async(dispatch)=> {

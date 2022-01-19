@@ -1,4 +1,5 @@
 const express = require('express');
+const res = require('express/lib/response');
 const { static } = express;
 const path = require('path');
 
@@ -72,6 +73,9 @@ app.get('/api/students', async(req, res, next)=> {
     }
   });
 
+  app.use((err, req, res, next)=> {
+    res.status(500).send({error: err})
+  });
 
 
 
@@ -102,25 +106,26 @@ app.get('/api/students', async(req, res, next)=> {
     },
     name: {
       type: STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
+      // allowNull: false,
+      // validate: {
+      //   notEmpty: true,
+      // },
     },
     lastName: {
       type: STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-      },
+      // allowNull: false,
+      // validate: {
+      //   notEmpty: true,
+      // },
     },
     email: {
       type: STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: true,
-        isEmail: true,
-      },
+      // allowNull: false,
+      // validate: {
+      //   notEmpty: true,
+      //   isEmail: true,
+      // },
+      unique : true
     }
 });
 
@@ -133,17 +138,19 @@ const Campus = conn.define('campus', {
 },
 campusName: {
   type: STRING,
-  allowNull: false,
-  validate: {
-    notEmpty: true,
-  },
+  // allowNull: false,
+  // validate: {
+  //   notEmpty: true,
+  // },
+  // unique : true
 },
 campusAddress: {
     type: STRING,
-    allowNull: false,
-    validate: {
-      notEmpty: true,
-    }
+    // allowNull: false,
+    // validate: {
+    //   notEmpty: true,
+    // },
+    // unique : true
   }
   });
 
