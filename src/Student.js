@@ -11,6 +11,7 @@ const Student = ({students, match: { params: {id}}}) => {
       return (
     <ul>
       <h1>{student.name}</h1>
+      <img src={student.imageURL}></img>
         <h4> {student.name} {student.lastName} attends &nbsp;   
          
         <div>
@@ -19,6 +20,7 @@ const Student = ({students, match: { params: {id}}}) => {
         </div>
       </h4>
       <pre> contact him at {student.email} </pre>
+      <pre> current gpa is {student.gpa}</pre>
 
 
 

@@ -94,7 +94,7 @@ app.get('/api/students', async(req, res, next)=> {
 
 
   const Sequelize = require('sequelize');
-  const { UUID, UUIDV4, STRING } = Sequelize;
+  const { UUID, UUIDV4, STRING, TEXT, DECIMAL } = Sequelize;
   const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/juniordb');
 
 
@@ -125,7 +125,19 @@ app.get('/api/students', async(req, res, next)=> {
       //   notEmpty: true,
       //   isEmail: true,
       // },
-      unique : true
+      unique : true,
+    },
+    imageURL : {
+      type: STRING,
+      defaultValue: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png'
+    },
+    gpa: {
+      type: DECIMAL(10,1),
+      defaultValue: 4.0,
+      validate: {
+        min: 0.0,
+        max: 4.0,
+      }
     }
 });
 
@@ -151,7 +163,14 @@ campusAddress: {
     //   notEmpty: true,
     // },
     // unique : true
-  }
+  },
+campusImageURL : {
+  type: STRING,
+  defaultValue: 'https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
+},
+description: {
+type: TEXT
+},
   });
 
 
@@ -166,28 +185,38 @@ const syncAndSeed = async()=> {
 //schools
 const Blue_Mountain_State = await Campus.create({
   campusName: 'Blue Mountain State', 
-  campusAddress: '100 penn'
+  campusAddress: '2363 Mountain Rd Hamburg, PA 19526',
+  campusImageURL: 'https://cdn3.sportngin.com/attachments/photo/3827/8377/BMS-Goats-Logo.jpg',
+  description: 'Blue Mountain State, and its football team, the "Mountain Goats" are not known for their academics '
 });
   
   
 const South_Harmon_Institute_of_Technology = await Campus.create({
   campusName: 'South Harmon Institute of Technology', 
-  campusAddress: 'test2'
+  campusAddress: '321 UA St, Saint Cloud, MO 65441',
+  campusImageURL: 'https://pbs.twimg.com/media/E-D7TbbWQAEYspA.png',
+  description: 'Acceptance is just one click away'
 });
 
 const Faber_College = await Campus.create({
   campusName: 'Faber College', 
-  campusAddress: 'testting testy'
+  campusAddress: '400 High St, Dunellen, NJ 08812',
+  campusImageURL: 'https://s.abcnews.com/images/Entertainment/nc_animal_house_ll_130725_4x3_992.jpg',
+  description: 'Knowledge is Good'
 });
 
 const Dartmouth = await Campus.create({
   campusName: 'Dartmouth', 
-  campusAddress: 'test a a check'
+  campusAddress: '7 Lebanon St. Hanover, NH 03755',
+  campusImageURL: 'https://upload.wikimedia.org/wikipedia/commons/e/ec/Dartmouth_College_campus_2007-10-20_09.JPG',
+  description: 'vox clamantis in deserto'
 });
 
 const East_Great_Falls = await Campus.create({
   campusName: 'East Great Falls', 
-  campusAddress: 'checking'
+  campusAddress: '5901 Hall St SE, Grand Rapids, MI 49546',
+  campusImageURL: 'https://upload.wikimedia.org/wikipedia/commons/6/69/Great_Falls_High_School_Historic_District_%282013%29_-_Cascade_County%2C_Montana.png',
+  description: 'God bless the internet.'
 });
 
 //students
@@ -196,6 +225,8 @@ const thad = await Student.create({
   name: 'Thad', 
   lastName:'Castle', 
   email:'tcastle1@bms.edu', 
+  imageURL : 'https://i.pinimg.com/originals/9b/39/72/9b397209ad34511cb2e5cba3bbd30544.png',
+  gpa: 0.2,
   campusId: Blue_Mountain_State.id
 });
 
@@ -203,6 +234,8 @@ const alex = await Student.create({
   name: 'Alex', 
   lastName:'Moran', 
   email:'amoran6@bms.edu', 
+  imageURL : 'https://pbs.twimg.com/profile_images/514631405423591424/LlWDlHts_400x400.jpeg',
+  gpa: 2.8,
   campusId: Blue_Mountain_State.id
 });
 
@@ -210,6 +243,8 @@ const steve = await Student.create({
   name: 'Steve', 
   lastName:'Stifler',  
   email:'stifler70@hotmail.com', 
+  imageURL : 'https://static.wikia.nocookie.net/americanpie/images/b/b7/Images.jpg/revision/latest/scale-to-width-down/175?cb=20120525131526',
+  gpa: 2.5,
   campusId: East_Great_Falls.id
 });
 
@@ -217,6 +252,8 @@ const otter = await Student.create({
   name: 'Otter', 
   lastName:'Stratton', 
   email:'EricStratton@gmail.com', 
+  imageURL : 'http://1.bp.blogspot.com/-iC7v3FZzvuk/VToSMQnLqUI/AAAAAAAARLo/gZdqg-ZiWGE/s1600/AnimalHouse-Otter-Defense.jpg',
+  gpa: 1.6,
   campusId: Faber_College.id
 });
 
@@ -224,6 +261,8 @@ const bartleby = await Student.create({
   name: 'Bartleby', 
   lastName: 'Gaines', 
   email:'bgaines1@shit.edu', 
+  imageURL : 'https://akns-images.eonline.com/eol_images/Entire_Site/2021717/rs_1024x759-210817125949-1024-Justin-Long-Accepted-LT-81721-shutterstock_editorial_1567277a.jpg?fit=around%7C1024:759&output-quality=90&crop=1024:759;center,top',
+  gpa: 4.0,
   campusId: South_Harmon_Institute_of_Technology.id
 });
 };
