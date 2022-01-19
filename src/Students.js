@@ -8,6 +8,7 @@ import StudentCreate from "./StudentCreate"
 const Students = ({students, destroy}) => {
     return (
         <ul>
+            {students.length ? '': 'All students got sick! Add more below'}
             {
               students.map(student => {
               return(

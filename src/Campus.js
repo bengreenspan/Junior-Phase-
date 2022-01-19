@@ -13,19 +13,20 @@ const Campus = ({campuses, match: {params: {id}}}) => {
            <img src={campus.campusImageURL}></img>
            <h2> located at {campus.campusAddress} </h2>
            <h4> Enrollees</h4>
-           {
+           {campus.students.length ? 
+           
               campus.students.map(student => {
               return(
                   
                 <li key={ student.id}>
                     <Link to={`/students/${student.id}`} >
                    {student.name} 
-                   </Link >    
-                   
+                   </Link > 
                 </li>
               );
             })
-          }    
+          
+          : `${campus.campusName} needs a better recruiting department`}     
      </ul>
     )
 }

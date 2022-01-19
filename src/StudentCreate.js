@@ -4,8 +4,8 @@ import {createStudent} from './store'
 
 
 class CreateStudent extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             name: '',
             lastName: '',
@@ -13,7 +13,8 @@ class CreateStudent extends Component {
             campus: '',
             error: '',
             imageURL: '',
-            gpa: ''
+            gpa: '',
+            error: ''
         };
         this.onChange = this.onChange.bind(this)
         this.onSave = this.onSave.bind(this)
@@ -25,11 +26,14 @@ class CreateStudent extends Component {
         this.setState(change);
     }
 
-       onSave(ev){
+   async onSave(ev){
         ev.preventDefault();
-        this.props.createStudent({...this.state});
-        console.log(this.state)
-    
+        try {
+       await this.props.createStudent({...this.state, });
+    }
+    catch(er){
+        this.setState({error: er.response.data.error.errors[0].message})
+    }
     }
 
     render(){
@@ -47,7 +51,11 @@ class CreateStudent extends Component {
             <input name='lastName' value={ lastName} onChange={ onChange} placeholder="Last Name"/>  <br />
             <input name='email' value={ email} onChange={ onChange} placeholder="Email" /> <br />
             <input name='imageURL' value={ imageURL} onChange={ onChange} placeholder="Profile Picture URL" /> <br />
-            <input name='gpa' value={ gpa} onChange={ onChange} placeholder="Grade Point Average" /> <br />
+            {/* <input name='gpa' value={ gpa} onChange={ onChange} placeholder="Grade Point Average" /> <br /> */}
+           
+           {/* <label htmlFor='gpa'>Grade Point Average</label> */}
+            <input type='number' name='gpa' value={gpa} onChange={ onChange} step='.1' placeholder="GPA" min='0' max='4.0' ></input>
+           
             <select value={campus} name='campus' onChange={ onChange}>
                 <option value=''>Select Campus </option> 
             {this.props.campuses.map((campus) => (
@@ -55,7 +63,7 @@ class CreateStudent extends Component {
                 {campus.campusName}
                 </option>
             ))}
-
+          
             </select>
             <br />
             <button disabled={!email || !lastName || !name || !campus} >Submit </button>

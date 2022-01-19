@@ -10,7 +10,8 @@ class CreateCampus extends Component {
             campusName: '',
             campusAddress: '',
             campusImageURL: '',
-            description: ''
+            description: '',
+            error: ''
         };
         this.onChange = this.onChange.bind(this)
         this.onSave = this.onSave.bind(this)
@@ -25,25 +26,25 @@ class CreateCampus extends Component {
      async onSave(ev){
         ev.preventDefault();
         try {
-        await this.props.create(this.state.campusName, this.state.campusAddress)
+        await this.props.createCampus({...this.state})
         }
-        catch(ex){
-            this.setState({ error: ex.response.data});
+        catch(er){
+            this.setState({ error: er.response.data.error.errors[0].message});
         }
         
     }
 
     render(){
-        const { campusName, campusAddress, campusImageURL, description} = this.state
+        const { campusName, campusAddress, campusImageURL, description, error} = this.state
         const { onChange, onSave} = this
         return (
             <div>
         <form onSubmit={onSave}>
-            {/* <pre>
+            <pre>
             {
                 !!error  && JSON.stringify(error, null, 2)
             }
-            </pre> */}
+            </pre>
             
             <input name='campusName' value={ campusName} onChange={ onChange} placeholder="Campus Name"/> <br />
             <input name='campusAddress' value={ campusAddress} onChange={ onChange} placeholder="Campus Address"/>  <br />
@@ -59,11 +60,10 @@ class CreateCampus extends Component {
     }
 }
 
-export default connect(
-    null,
-    (dispatch)=> {
-        return {
-            create: (campus) => dispatch(createCampus(campus))
-        }
-    } 
-)(CreateCampus);
+
+const mapDispatchToProps = (dispatch) => ({
+    createCampus: (campus)=> dispatch(createCampus(campus))
+});
+
+export default connect((state => state), mapDispatchToProps)(CreateCampus)
+

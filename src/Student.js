@@ -11,20 +11,18 @@ const Student = ({students, match: { params: {id}}}) => {
       return (
     <ul>
       <h1>{student.name}</h1>
-      <img src={student.imageURL}></img>
-        <h4> {student.name} {student.lastName} attends &nbsp;   
-         
+      <img src={student.imageURL} width='100' height='100'></img>
+        <h4> {student.name} {student.lastName}   
         <div>
+        {student.campus ? 
         <Link to={`/campuses/${student.campus.id}`}>
-                   {student.campus.campusName}</Link >
+          attends {student.campus.campusName}</Link > 
+                   : 'Is looking to transfer'}
         </div>
       </h4>
       <pre> contact him at {student.email} </pre>
       <pre> current gpa is {student.gpa}</pre>
-
-
-
-
+      {/* <StudentUpdate /> */}
     </ul>
     )
 }

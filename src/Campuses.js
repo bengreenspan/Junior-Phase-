@@ -7,7 +7,7 @@ import CampusCreate from './CampusCreate';
 const Campuses = ({campuses, destroy}) => {
     return ( 
         <ul>
-            
+           {/* {!!campuses.length ? '': 'All classes have been postponed due to COVID-19 restrictions, add schools with mask mandates to continue.'} */}
             {
               campuses.map(campus => {
               return(
@@ -16,7 +16,7 @@ const Campuses = ({campuses, destroy}) => {
                        {campus.campusName}  
                        </Link >
                        &nbsp; 
-                       {campus.students ? `Total Enrollment is ${campus.students.length}` : 'Total Enrollment is 0'}
+                       {!!campus.students ? `Total Enrollment is ${campus.students.length}` : 'Total Enrollment is 0'}
                     <button onClick={()=> destroy(campus)}>Unaccredit</button> 
                     </li>
               );

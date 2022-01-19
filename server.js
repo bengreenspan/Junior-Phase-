@@ -107,25 +107,25 @@ app.get('/api/students', async(req, res, next)=> {
     },
     name: {
       type: STRING,
-      // allowNull: false,
-      // validate: {
-      //   notEmpty: true,
-      // },
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
     lastName: {
       type: STRING,
-      // allowNull: false,
-      // validate: {
-      //   notEmpty: true,
-      // },
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
     },
     email: {
       type: STRING,
-      // allowNull: false,
-      // validate: {
-      //   notEmpty: true,
-      //   isEmail: true,
-      // },
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+        isEmail: true,
+      },
       unique : true,
     },
     imageURL : {
@@ -151,19 +151,19 @@ const Campus = conn.define('campus', {
 },
 campusName: {
   type: STRING,
-  // allowNull: false,
-  // validate: {
-  //   notEmpty: true,
-  // },
-  // unique : true
+  allowNull: false,
+  validate: {
+    notEmpty: true,
+  },
+  unique : true
 },
 campusAddress: {
     type: STRING,
-    // allowNull: false,
-    // validate: {
-    //   notEmpty: true,
-    // },
-    // unique : true
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+    unique : true
   },
 campusImageURL : {
   type: STRING,
