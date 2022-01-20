@@ -40,8 +40,6 @@ render(){
         bootstrap: ()=> 
           dispatch(loadStudents()) &&
           dispatch(loadCampuses())
-       
-
         }; 
       }
   )(_App);

@@ -8,6 +8,8 @@ const CREATE_STUDENT = 'CREATE_STUDENT';
 const CREATE_CAMPUS = 'CREATE_CAMPUS';
 const DESTROY_STUDENT = 'DESTROY_STUDENT';
 const DESTROY_CAMPUS = 'DESTROY_CAMPUS';
+const UPDATE_STUDENT = 'UPDATE_STUDENT';
+const UPDATE_CAMPUS = 'UPDATE_CAMPUS';
 
 const studentsReducer = (state = [], action)=> {
     if(action.type === LOAD_STUDENT){
@@ -17,7 +19,10 @@ const studentsReducer = (state = [], action)=> {
       state = [...state, action.student];
     }
     if(action.type === DESTROY_STUDENT){
-      state = state.filter(student => student.id !== action.student.id)
+      state = state.filter((student) => student.id !== action.student.id)
+    }
+    if(action.type === UPDATE_STUDENT){
+      state = state.map((student) => student.id !== action.student.id ? student : action.student);
     }
     return state;
   };
@@ -30,7 +35,10 @@ const campusesReducer = (state = [], action)=> {
       state = [...state, action.campus];
     }
     if(action.type === DESTROY_CAMPUS){
-      state = state.filter(campus => campus.id !== action.campus.id)
+      state = state.filter((campus) => campus.id !== action.campus.id)
+    }
+    if(action.type === UPDATE_CAMPUS){
+      state = state.map((campus) => campus.id !== action.campus.id ? campus : action.campus);
     }
     return state;
   };
@@ -47,6 +55,8 @@ const _createStudent = student=> ({ type: CREATE_STUDENT, student});
 const _createCampus = campus=> ({ type: CREATE_CAMPUS, campus}); 
 const _destroyStudent = student=> ({ type: DESTROY_STUDENT, student}); 
 const _destroyCampus = campus=> ({ type: DESTROY_CAMPUS, campus}); 
+const _updateStudent = student=> ({ type: UPDATE_STUDENT, student}); 
+const _updateCampus = campus=> ({ type: UPDATE_CAMPUS, campus}); 
 
 
 const loadStudents = ()=> {
@@ -63,37 +73,57 @@ const loadCampuses = ()=> {
   };
 };
 
-const createStudent = (student)=> {
+const createStudent = (student, history)=> {
   return async(dispatch)=> {
     const { data: createdStudent }  = await axios.post('/api/students', student);
     dispatch(_createStudent(createdStudent));
+    history.push(`/students/{createStudent.id}`);
   };
 };
 
-const createCampus = (campus)=> {
+const createCampus = (campus, history)=> {
   return async(dispatch)=> {
     const { data: createdCampus }  = await axios.post('/api/campuses', campus);
     dispatch(_createCampus(createdCampus));
+    history.push(`/campuses/{createdCampus.id}`);
   };
 };
 
 
-const destroyStudent = (student)=> {
+const destroyStudent = (student, history)=> {
   return async(dispatch)=> {
-  dispatch(_destroyStudent(student));
-  await axios.delete(`/api/students/${student.id}`)
-
+    dispatch(_destroyStudent(student));
+    await axios.delete(`/api/students/${student.id}`)
+    history.push(`/`)
   };
 };
 
-const destroyCampus = (campus)=> {
+
+const destroyCampus = (campus, history)=> {
   return async(dispatch)=> {
     dispatch(_destroyCampus(campus));
     await axios.delete(`/api/campuses/${campus.id}`)
   };
 };
 
+const updateStudent = (student, history)=> {
+  return async(dispatch)=> {
+  const updatedStudent = (await axios.put(`/api/students/${student.id}`, student)).data;
+  dispatch(_updateStudent(updatedStudent));
+  };
+};
 
+const updateCampus = (campus, history)=> {
+  return async(dispatch)=> {
+    const updatedCampus = (await axios.put(`/api/campuses/${campus.id}`, campus)).data;
+    dispatch(_updateCampus(updatedCampus));
+  };
+};
+
+
+const refreshPage = ()=> {
+  window.location.reload();
+}
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
@@ -101,5 +131,7 @@ export default store;
 export { 
   loadStudents,loadCampuses, 
   createStudent, createCampus, 
-  destroyStudent, destroyCampus
+  destroyStudent, destroyCampus,
+  updateStudent, updateCampus,
+  refreshPage
 };

@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { destroyCampus } from './store';
+import { destroyCampus, refreshPage } from './store';
 import CampusCreate from './CampusCreate';
 
 const Campuses = ({campuses, destroy}) => {
     return ( 
         <ul>
-           {/* {!!campuses.length ? '': 'All classes have been postponed due to COVID-19 restrictions, add schools with mask mandates to continue.'} */}
+           {!!campuses.length ? '': 'All classes have been postponed due to COVID-19 restrictions, add schools with mask mandates to continue.'}
             {
               campuses.map(campus => {
               return(
@@ -32,7 +32,8 @@ export default connect(
     state => state,
         (dispatch, {history})=> {
           return {
-              destroy: (campus)=> dispatch(destroyCampus(campus, history))
+              destroy: (campus)=> dispatch(destroyCampus(campus, history))&&
+              dispatch(refreshPage())
           }
       }
 )(Campuses);

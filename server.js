@@ -1,13 +1,10 @@
 const express = require('express');
-const res = require('express/lib/response');
-const { static } = express;
 const path = require('path');
 
 const app = express();
 app.use(express.json());
 
 app.use('/dist', express.static(path.join(__dirname, 'dist')));
-
 app.get('/', (req, res)=> res.sendFile(path.join(__dirname, 'index.html')));
 
 app.get('/api/students', async(req, res, next)=> {
@@ -41,6 +38,19 @@ app.get('/api/students', async(req, res, next)=> {
       next(ex);
     }
   });
+
+  app.put('/api/students/:id', async(req, res, next)=> {
+    try {
+      const student = await Student.findByPk(req.params.id);
+      res.status(await student.update(req.body));
+    }
+    catch(ex){
+      next(ex);
+    }
+  });
+
+
+
 
 
   app.get('/api/campuses', async(req, res, next)=> {
@@ -77,9 +87,6 @@ app.get('/api/students', async(req, res, next)=> {
   app.use((err, req, res, next)=> {
     res.status(500).send({error: err})
   });
-
-
-
 
 
   const init = async()=> {
@@ -267,22 +274,5 @@ const bartleby = await Student.create({
   campusId: South_Harmon_Institute_of_Technology.id
 });
 };
-
-
-
-//  const syncAndSeed = async()=> {
-//     await conn.sync({ force: true });
-//     const campuses = ['Blue Mountain State', 'South Harmon Institute of Technology', 'Faber College', 'Dartmouth', 'East Great Falls'];
-//     const [Blue_Mountain_State, South_Harmon_Institute_of_Technology, Faber_College, Dartmouth, East_Great_Falls] = await Promise.all(campuses.map(campus => Campus.create({ name: campus} )));
-//     const students = [
-//       { name: 'Thad', campusId: Blue_Mountain_State.id}, 
-//       { name: 'Alex', campusId: Blue_Mountain_State.id}, 
-//       { name: 'Steve', campusId: East_Great_Falls.id}, 
-//       { name: 'Otter', campusId: Faber_College.id}, 
-//       { name: 'Bartleby', campusId: South_Harmon_Institute_of_Technology.id}, 
-//     ];
-//     await Promise.all(students.map(name => Student.create({ name: name.name, campusId: name.campusId })));
-       
-//   };
 
 init();

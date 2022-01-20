@@ -52,9 +52,7 @@ class CreateCampus extends Component {
             <input name='description' value={ description} onChange={ onChange} placeholder="Description"/>  <br />
             <button disabled={!campusName || !campusAddress} >Build the Institute! </button>
         </form>
-        <pre>
-            {JSON.stringify(this.state, null, 2)}
-        </pre>
+       
         </div>
         );
     }

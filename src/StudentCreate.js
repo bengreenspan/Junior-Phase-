@@ -1,16 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {createStudent} from './store'
+import {createStudent, refreshPage} from './store'
 
 
 class CreateStudent extends Component {
+    
     constructor() {
         super();
         this.state = {
             name: '',
             lastName: '',
             email: '',
-            campus: '',
+            campusId: '',
             error: '',
             imageURL: '',
             gpa: '',
@@ -18,6 +19,7 @@ class CreateStudent extends Component {
         };
         this.onChange = this.onChange.bind(this)
         this.onSave = this.onSave.bind(this)
+
     }
 
     onChange(ev){
@@ -30,18 +32,24 @@ class CreateStudent extends Component {
         ev.preventDefault();
         try {
        await this.props.createStudent({...this.state, });
+       window.location.reload(); 
     }
     catch(er){
         this.setState({error: er.response.data.error.errors[0].message})
     }
     }
 
+   
+            // <button onClick={refreshPage}>Click to reload!</button>
+         
+    
+
     render(){
-        const { name, lastName, email, campus, imageURL, gpa, error } = this.state
+        const { name, lastName, email, campusId, imageURL, gpa, error } = this.state
         const { onChange, onSave} = this
         return (
             <div>
-        <form onSubmit={onSave}>
+        <form onSubmit={onSave}>  
             <pre>
             {
                 !!error  && JSON.stringify(error, null, 2)
@@ -51,12 +59,9 @@ class CreateStudent extends Component {
             <input name='lastName' value={ lastName} onChange={ onChange} placeholder="Last Name"/>  <br />
             <input name='email' value={ email} onChange={ onChange} placeholder="Email" /> <br />
             <input name='imageURL' value={ imageURL} onChange={ onChange} placeholder="Profile Picture URL" /> <br />
-            {/* <input name='gpa' value={ gpa} onChange={ onChange} placeholder="Grade Point Average" /> <br /> */}
-           
-           {/* <label htmlFor='gpa'>Grade Point Average</label> */}
             <input type='number' name='gpa' value={gpa} onChange={ onChange} step='.1' placeholder="GPA" min='0' max='4.0' ></input>
            
-            <select value={campus} name='campus' onChange={ onChange}>
+            <select value={campusId} name='campusId' onChange={ onChange}>
                 <option value=''>Select Campus </option> 
             {this.props.campuses.map((campus) => (
                 <option key={campus.id} value = {campus.id}>
@@ -66,19 +71,17 @@ class CreateStudent extends Component {
           
             </select>
             <br />
-            <button disabled={!email || !lastName || !name || !campus} >Submit </button>
+            <button disabled={!email || !lastName || !name || !campusId} >Submit </button>
         </form>
-        <pre>
-            {JSON.stringify(this.state, null, 2)}
-        </pre>
         </div>
         );
     }
 }
 
-
-const mapDispatchToProps = (dispatch) => ({
-    createStudent: (student)=> dispatch(createStudent(student))
+const mapDispatchToProps = (dispatch, {history}) => ({
+    createStudent: (student)=> 
+    dispatch(createStudent(student, history)) &&
+    dispatch(refreshPage())
 });
 
 export default connect((state => state), mapDispatchToProps)(CreateStudent)

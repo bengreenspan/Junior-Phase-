@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {destroyStudent} from './store'
+import {destroyStudent, refreshPage, loadStudents} from './store'
 import StudentCreate from "./StudentCreate"
 
 
@@ -35,11 +35,9 @@ const mapStateToProps = (  state => state)
 const mapDispatchToProps =  (dispatch, {history})=> {
   return {
       destroy: (student)=> 
-      dispatch(
-        destroyStudent
-      // console.log
-        (student, history)
-        )
+      dispatch(destroyStudent(student, history)) &&
+      dispatch(refreshPage())
+        
   }
 }
 
