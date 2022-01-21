@@ -87,16 +87,10 @@ class UpdateCampus extends Component {
 
 
 const mapDispatchToProps = (dispatch, {history}) => {
-    return {
-        updateCampus: (campus) => 
-        {
-    dispatch(updateCampus(campus, history)); 
-},
-};
-};
-
-
-
+    return {updateCampus: (campus) => 
+         {dispatch(updateCampus(campus, history));},
+      };
+    };
 
 export default connect((state => state), mapDispatchToProps)(UpdateCampus)
 

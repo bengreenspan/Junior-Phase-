@@ -90,7 +90,6 @@ app.get('/api/students', async(req, res, next)=> {
   app.put('/api/campuses/:id', async(req, res, next)=> {
     try {
       const campus = await Campus.findByPk(req.params.id);
-      console.log(campus)
       res.status(await campus.update(req.body));
     }
     catch(ex){
@@ -112,7 +111,7 @@ app.get('/api/students', async(req, res, next)=> {
       app.listen(port, ()=> console.log(`listening on port ${port}`));
     }
     catch(ex){
-      console.log(ex);
+      next(ex);
     }
   }
 

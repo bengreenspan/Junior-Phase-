@@ -105,12 +105,10 @@ class UpdateStudent extends Component {
 const mapDispatchToProps = (dispatch, {history}) => {
     return {
         updateStudent: (student) => {
-    dispatch(updateStudent(student, history)); 
-},
-};
+            dispatch(updateStudent(student, history)); 
+        },
+   };
 };
 
-
-export default connect((state) => state,
-    mapDispatchToProps)(UpdateStudent)
+export default connect((state) => state, mapDispatchToProps)(UpdateStudent)
 

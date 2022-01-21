@@ -2,8 +2,9 @@ import React from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CampusUpdate from './CampusUpdate';
+import {updateStudent, refreshPage} from './store'
 
-const Campus = ({campuses, match: {params: {id}}}) => {
+const Campus = ({updateStudent, campuses, match: {params: {id}}}) => {
     const campus = campuses.find(campus => campus.id === id);
  if(!campus){
       return 'Sorry the Campus you are looking for is unreachable';
@@ -24,6 +25,7 @@ const Campus = ({campuses, match: {params: {id}}}) => {
                     <Link to={`/students/${student.id}`} >
                    {student.name} 
                    </Link > 
+                   <button onClick={()=> updateStudent({...student, campusId: null}) }>Unaccredit</button> 
                 </li>
               );
             })
@@ -35,6 +37,16 @@ const Campus = ({campuses, match: {params: {id}}}) => {
     )
 }
 
+
+
 export default connect(
-    state => state
-)(Campus);
+    state => state, 
+ (dispatch) => {
+      return {
+      updateStudent: (student)=> {dispatch(updateStudent(student, history))
+        &&
+        dispatch(refreshPage())
+        ;},
+      }
+    }
+  )(Campus);

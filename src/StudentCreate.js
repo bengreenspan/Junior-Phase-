@@ -31,7 +31,6 @@ class CreateStudent extends Component {
         ev.preventDefault();
         try {
        await this.props.createStudent({...this.state, });
-       window.location.reload(); 
     }
     catch(er){
         this.setState({error: er.response.data.error.errors[0].message})
@@ -73,7 +72,7 @@ class CreateStudent extends Component {
 
 const mapDispatchToProps = (dispatch, {history}) => ({
     createStudent: (student)=> 
-    dispatch(createStudent(student, history)) &&
+    dispatch(createStudent(student, history))&&
     dispatch(refreshPage())
 });
 
