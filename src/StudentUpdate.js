@@ -16,24 +16,23 @@ class UpdateStudent extends Component {
             gpa: '',
             error: ''
         };
-        console.log(this.props)
         this.onChange = this.onChange.bind(this)
         this.onSave = this.onSave.bind(this)
     }
-    async componentDidUpdate(prevProps) {
-        if (!prevProps.student.id && this.props.student.id) {
-          this.setState({
-            id: student.id,
-            name: student.name,
-            lastName: student.lastName,
-            email: student.email,
-            campusId: student.campusId || "",
-            imageURL: student.imageURL,
-            gpa: student.gpa,
+    // async componentDidUpdate(prevProps) {
+    //     if (!prevProps.student.id && this.props.student.id) {
+    //       this.setState({
+    //         id: student.id,
+    //         name: student.name,
+    //         lastName: student.lastName,
+    //         email: student.email,
+    //         campusId: student.campusId || "",
+    //         imageURL: student.imageURL,
+    //         gpa: student.gpa,
            
-          });
-        }
-      }
+    //       });
+    //     }
+    //   }
 
       async componentDidMount() {
         const { student } = this.props;
@@ -95,25 +94,13 @@ class UpdateStudent extends Component {
           
             </select>
             <br />
-            <button disabled={!email || !lastName || !name || !campusId} >Submit </button>
+            <button disabled={!email || !lastName || !name || !campusId} >Update Details! </button>
         </form>
-        {/* <pre>
-{JSON.stringify(this.state, null, 2)}
-</pre> */}
         </div>
         );
     }
 }
 
-
-// const mapStateToProps = ({students}, {match})=> {
-//     const student = {students}
-//     // const campuses = state.campuses
-//     console.log(match)
-// return {
-//      student
-// }
-// }
 
 const mapDispatchToProps = (dispatch, {history}) => {
     return {

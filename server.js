@@ -55,8 +55,6 @@ app.get('/api/students', async(req, res, next)=> {
 
 
 
-
-
   app.get('/api/campuses', async(req, res, next)=> {
     try {
       res.send(await Campus.findAll(
@@ -87,6 +85,20 @@ app.get('/api/students', async(req, res, next)=> {
       next(ex);
     }
   });
+
+
+  app.put('/api/campuses/:id', async(req, res, next)=> {
+    try {
+      const campus = await Campus.findByPk(req.params.id);
+      console.log(campus)
+      res.status(await campus.update(req.body));
+    }
+    catch(ex){
+      next(ex);
+    }
+  });
+
+
 
   app.use((err, req, res, next)=> {
     res.status(500).send({error: err})
@@ -231,6 +243,13 @@ const East_Great_Falls = await Campus.create({
   description: 'God bless the internet.'
 });
 
+// const UCONN = await Campus.create({
+//   campusName: 'University of Connecticut', 
+//   campusAddress: '2131 Hillside Road, Unit 3088 Storrs, CT 06269',
+//   campusImageURL: 'https://dfcby4322olzt.cloudfront.net/wp-content/uploads/2016/06/UConn-aerial.jpg',
+//   description: 'Go Huskys'
+// });
+
 //students
 
 const thad = await Student.create({
@@ -277,6 +296,24 @@ const bartleby = await Student.create({
   gpa: 4.0,
   campusId: South_Harmon_Institute_of_Technology.id
 });
+
+// const cam = await Student.create({ 
+//   name: 'Cameron', 
+//   lastName: 'Sugrue', 
+//   email:'cameronsugrue@uconn.edu', 
+//   imageURL : 'https://akns-images.eonline.com/eol_images/Entire_Site/2021717/rs_1024x759-210817125949-1024-Justin-Long-Accepted-LT-81721-shutterstock_editorial_1567277a.jpg?fit=around%7C1024:759&output-quality=90&crop=1024:759;center,top',
+//   gpa: 3.0,
+//   campusId: UCONN.id
+// });
+
+// const nate = await Student.create({ 
+//   name: 'Nathan', 
+//   lastName: 'Gallagher', 
+//   email:'nathangallagher@shit.edu', 
+//   imageURL : 'https://akns-images.eonline.com/eol_images/Entire_Site/2021717/rs_1024x759-210817125949-1024-Justin-Long-Accepted-LT-81721-shutterstock_editorial_1567277a.jpg?fit=around%7C1024:759&output-quality=90&crop=1024:759;center,top',
+//   gpa: 3.0,
+//   campusId: UCONN.id
+// });
 };
 
 init();

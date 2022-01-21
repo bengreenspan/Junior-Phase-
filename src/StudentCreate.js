@@ -62,7 +62,6 @@ class CreateStudent extends Component {
                 {campus.campusName}
                 </option>
             ))}
-          
             </select>
             <br />
             <button disabled={!email || !lastName || !name || !campusId} >Submit </button>

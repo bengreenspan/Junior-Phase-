@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import CampusUpdate from './CampusUpdate';
 
 const Campus = ({campuses, match: {params: {id}}}) => {
     const campus = campuses.find(campus => campus.id === id);
@@ -10,7 +11,7 @@ const Campus = ({campuses, match: {params: {id}}}) => {
     return (
         <ul>
            <h1>{campus.campusName}</h1>
-           <img src={campus.campusImageURL}></img>
+           <img src={campus.campusImageURL} width='200' height='200'></img>
            <h2> located at {campus.campusAddress} </h2>
            <h3> {campus.description} </h3>
            <h4> Enrollees</h4>
@@ -26,8 +27,10 @@ const Campus = ({campuses, match: {params: {id}}}) => {
                 </li>
               );
             })
-          
-          : `${campus.campusName} needs a better recruiting department`}     
+
+          : `${campus.campusName} needs a better recruiting department`}   
+          <h3>Change campus details</h3>  
+            <CampusUpdate history={history} campus={campus}/>
      </ul>
     )
 }

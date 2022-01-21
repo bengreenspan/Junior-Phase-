@@ -115,10 +115,11 @@ const updateStudent = (student, history)=> {
 
 const updateCampus = (campus, history)=> {
   return async(dispatch)=> {
-    const updatedCampus = (await axios.put(`/api/campuses/${campus.id}`, campus)).data;
-    dispatch(_updateCampus(updatedCampus));
+  const updateCampus = (await axios.put(`/api/campuses/${campus.id}`, campus)).data;
+  dispatch(_updateCampus(updateCampus));
   };
 };
+
 
 
 const refreshPage = ()=> {
