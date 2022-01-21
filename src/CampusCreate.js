@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
-import {createCampus} from './store'
+import {createCampus, refreshPage} from './store'
 
 
 class CreateCampus extends Component {
@@ -60,7 +60,8 @@ class CreateCampus extends Component {
 
 
 const mapDispatchToProps = (dispatch) => ({
-    createCampus: (campus)=> dispatch(createCampus(campus))
+    createCampus: (campus)=> dispatch(createCampus(campus))&&
+    dispatch(refreshPage())
 });
 
 export default connect((state => state), mapDispatchToProps)(CreateCampus)

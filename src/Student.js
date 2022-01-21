@@ -22,7 +22,8 @@ const Student = ({students, match: { params: {id}}}) => {
       </h4>
       <pre> contact him at {student.email} </pre>
       <pre> current gpa is {student.gpa}</pre>
-      {/* <StudentUpdate /> */}
+      <StudentUpdate 
+      history={history} student={student}/>
     </ul>
     )
 }

@@ -12,7 +12,6 @@ class CreateStudent extends Component {
             lastName: '',
             email: '',
             campusId: '',
-            error: '',
             imageURL: '',
             gpa: '',
             error: ''
@@ -38,11 +37,6 @@ class CreateStudent extends Component {
         this.setState({error: er.response.data.error.errors[0].message})
     }
     }
-
-   
-            // <button onClick={refreshPage}>Click to reload!</button>
-         
-    
 
     render(){
         const { name, lastName, email, campusId, imageURL, gpa, error } = this.state

@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {updateStudent} from './store'
+import {updateStudent, refreshPage} from './store'
 
 
 class UpdateStudent extends Component {
+    
     constructor(props) {
         super(props);
         this.state = {
             name: '',
             lastName: '',
             email: '',
-            campus: '',
-            error: '',
+            campusId: '',
             imageURL: '',
             gpa: '',
             error: ''
@@ -20,10 +20,36 @@ class UpdateStudent extends Component {
         this.onChange = this.onChange.bind(this)
         this.onSave = this.onSave.bind(this)
     }
-    componentDidUpdate(){
-        // this.setState({ name: this.props.student.name})
-        // console.log(this.props)
-    }
+    async componentDidUpdate(prevProps) {
+        if (!prevProps.student.id && this.props.student.id) {
+          this.setState({
+            id: student.id,
+            name: student.name,
+            lastName: student.lastName,
+            email: student.email,
+            campusId: student.campusId || "",
+            imageURL: student.imageURL,
+            gpa: student.gpa,
+           
+          });
+        }
+      }
+
+      async componentDidMount() {
+        const { student } = this.props;
+        if (student.id) {
+          this.setState({
+            id: student.id,
+            name: student.name,
+            lastName: student.lastName,
+            email: student.email,
+            campusId: student.campusId || "",
+            imageURL: student.imageURL,
+            gpa: student.gpa,
+          });
+        }
+      }
+
 
     onChange(ev){
         const change = {};
@@ -34,7 +60,8 @@ class UpdateStudent extends Component {
    async onSave(ev){
         ev.preventDefault();
         try {
-       await this.props.createStudent({...this.state, });
+       await this.props.updateStudent({...this.state, });
+       window.location.reload(); 
     }
     catch(er){
         this.setState({error: er.response.data.error.errors[0].message})
@@ -42,11 +69,11 @@ class UpdateStudent extends Component {
     }
 
     render(){
-        const { name, lastName, email, campus, imageURL, gpa, error } = this.state
+        const { name, lastName, email, campusId, imageURL, gpa, error } = this.state
         const { onChange, onSave} = this
         return (
             <div>
-        <form onSubmit={onSave}>
+        <form onSubmit={onSave}>  
             <pre>
             {
                 !!error  && JSON.stringify(error, null, 2)
@@ -56,12 +83,9 @@ class UpdateStudent extends Component {
             <input name='lastName' value={ lastName} onChange={ onChange} placeholder="Last Name"/>  <br />
             <input name='email' value={ email} onChange={ onChange} placeholder="Email" /> <br />
             <input name='imageURL' value={ imageURL} onChange={ onChange} placeholder="Profile Picture URL" /> <br />
-            {/* <input name='gpa' value={ gpa} onChange={ onChange} placeholder="Grade Point Average" /> <br /> */}
-           
-           {/* <label htmlFor='gpa'>Grade Point Average</label> */}
             <input type='number' name='gpa' value={gpa} onChange={ onChange} step='.1' placeholder="GPA" min='0' max='4.0' ></input>
            
-            <select value={campus} name='campus' onChange={ onChange}>
+            <select value={campusId} name='campusId' onChange={ onChange}>
                 <option value=''>Select Campus </option> 
             {this.props.campuses.map((campus) => (
                 <option key={campus.id} value = {campus.id}>
@@ -71,34 +95,35 @@ class UpdateStudent extends Component {
           
             </select>
             <br />
-            <button disabled={!email || !lastName || !name || !campus} >Submit </button>
+            <button disabled={!email || !lastName || !name || !campusId} >Submit </button>
         </form>
-        <pre>
-            {JSON.stringify(this.state, null, 2)}
-        </pre>
-        {console.log(this.state.students.find(student => student.id === otherProps.match.params.id) )}
+        {/* <pre>
+{JSON.stringify(this.state, null, 2)}
+</pre> */}
         </div>
         );
     }
 }
 
-{/* <pre>
-{JSON.stringify(this.state, null, 2)}
-</pre> */}
-export default connect(
-    state => state
-)(UpdateStudent);
 
-// export default connect(
-//     (state, otherProps) => {
-//     const student = state.students.find(student => student.id === otherProps.match.params.id) || {};
+// const mapStateToProps = ({students}, {match})=> {
+//     const student = {students}
+//     // const campuses = state.campuses
+//     console.log(match)
 // return {
-//     student
-//     };
-// },
-// (dispatch, {history}) => {
-//     return {
-//         createStudent: (student)=> dispatch(createStudent(student))
-//         }
-//     }
-//  )(UpdateStudent)
+//      student
+// }
+// }
+
+const mapDispatchToProps = (dispatch, {history}) => {
+    return {
+        updateStudent: (student) => {
+    dispatch(updateStudent(student, history)); 
+},
+};
+};
+
+
+export default connect((state) => state,
+    mapDispatchToProps)(UpdateStudent)
+

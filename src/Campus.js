@@ -12,6 +12,7 @@ const Campus = ({campuses, match: {params: {id}}}) => {
            <h1>{campus.campusName}</h1>
            <img src={campus.campusImageURL}></img>
            <h2> located at {campus.campusAddress} </h2>
+           <h3> {campus.description} </h3>
            <h4> Enrollees</h4>
            {campus.students.length ? 
            
