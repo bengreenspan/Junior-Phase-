@@ -11,6 +11,7 @@ const Campus = ({updateStudent, campuses, match: {params: {id}}}) => {
   }
     return (
         <ul>
+              <div id='singlestudent'>
            <h1>{campus.campusName}</h1>
             <img src={campus.campusImageURL} width='200' height='200'></img>
               <h2> Located at:</h2>
@@ -30,8 +31,11 @@ const Campus = ({updateStudent, campuses, match: {params: {id}}}) => {
                     );
                   })
                 : `${campus.campusName} needs a better recruiting department`}   
-          <h3>Change campus details</h3>  
+                </div>
+                <h4 id='form'> 
+          <h3>Edit &nbsp;&nbsp;</h3>  
             <CampusUpdate history={history} campus={campus}/>
+            </h4>
      </ul>
     )
 }
