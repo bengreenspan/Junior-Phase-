@@ -12,15 +12,12 @@ const Campus = ({updateStudent, campuses, match: {params: {id}}}) => {
     return (
         <ul>
            <h1>{campus.campusName}</h1>
-           <img src={campus.campusImageURL} width='200' height='200'></img>
-           <h2> located at {campus.campusAddress} </h2>
-           <h3> {campus.description} </h3>
-           <h4> Enrollees</h4>
-           {campus.students.length ? 
-           
-              campus.students.map(student => {
+            <img src={campus.campusImageURL} width='200' height='200'></img>
+              <h2> located at {campus.campusAddress} </h2>
+              <h3> {campus.description} </h3>
+              <h4> Enrollees</h4>
+           {campus.students.length ? campus.students.map(student => {
               return(
-                  
                 <li key={ student.id}>
                     <Link to={`/students/${student.id}`} >
                    {student.name} 
@@ -29,7 +26,6 @@ const Campus = ({updateStudent, campuses, match: {params: {id}}}) => {
                 </li>
               );
             })
-
           : `${campus.campusName} needs a better recruiting department`}   
           <h3>Change campus details</h3>  
             <CampusUpdate history={history} campus={campus}/>
@@ -37,15 +33,10 @@ const Campus = ({updateStudent, campuses, match: {params: {id}}}) => {
     )
 }
 
-
-
-export default connect(
-    state => state, 
+export default connect(state => state, 
  (dispatch) => {
       return {
-      updateStudent: (student)=> {dispatch(updateStudent(student, history))
-        &&
-        dispatch(refreshPage())
+          updateStudent: (student)=> {dispatch(updateStudent(student, history)) && dispatch(refreshPage())
         ;},
       }
     }

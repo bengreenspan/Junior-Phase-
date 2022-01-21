@@ -25,13 +25,12 @@ class CreateCampus extends Component {
 
      async onSave(ev){
         ev.preventDefault();
-        try {
-        await this.props.createCampus({...this.state})
+         try {
+            await this.props.createCampus({...this.state})
         }
         catch(er){
             this.setState({ error: er.response.data.error.errors[0].message});
-        }
-        
+        }   
     }
 
     render(){
@@ -57,7 +56,6 @@ class CreateCampus extends Component {
         );
     }
 }
-
 
 const mapDispatchToProps = (dispatch) => ({
     createCampus: (campus)=> dispatch(createCampus(campus))&&

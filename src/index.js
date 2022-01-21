@@ -19,15 +19,13 @@ class _App extends Component{
 render(){
     return (
     <RoutyRoute>
-    <div>
-  
-        <Route component={ Nav } />
-        <Route component={ Students } path ='/' exact />
-        <Route component={ Campuses } path ='/campuses' exact />
-
-        <Route component={ Student } path ='/students/:id' exact />
-        <Route component={ Campus } path ='/campuses/:id' exact />
-    </div>
+      <div>
+          <Route component={ Nav } />
+          <Route component={ Students } path ='/' exact />
+          <Route component={ Campuses } path ='/campuses' exact />
+          <Route component={ Student } path ='/students/:id' exact />
+          <Route component={ Campus } path ='/campuses/:id' exact />
+      </div>
     </RoutyRoute>
     );
   }
@@ -35,11 +33,10 @@ render(){
 
     const App = connect(
     ({ students, campuses }) => ({ students, campuses }),
-    (dispatch)=> {
-      return { 
-        bootstrap: ()=> 
-          dispatch(loadStudents()) &&
-          dispatch(loadCampuses())
+      (dispatch)=> {
+        return { 
+          bootstrap: ()=> 
+          dispatch(loadStudents()) && dispatch(loadCampuses())
         }; 
       }
   )(_App);

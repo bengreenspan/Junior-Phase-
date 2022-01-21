@@ -12,17 +12,15 @@ const Campuses = ({campuses, destroy}) => {
               campuses.map(campus => {
               return(
                     <li key={ campus.id}>
-                        <Link to={`/campuses/${campus.id}`} >
-                       {campus.campusName}  
-                       </Link >
-                       &nbsp; 
-                       {!!campus.students ? `Total Enrollment is ${campus.students.length}` : 'Total Enrollment is 0'}
-                    <button onClick={()=> destroy(campus)}>Unaccredit</button> 
+                       <Link to={`/campuses/${campus.id}`} > {campus.campusName} </Link >&nbsp; 
+                          {!!campus.students ? `Total Enrollment is ${campus.students.length}` 
+                         : 'Total Enrollment is 0'}
+                       <button onClick={()=> destroy(campus)}>Unaccredit</button> 
                     </li>
               );
             })
           }    
-                    <h4>Create education</h4>
+    <h4>Create education</h4>
      <CampusCreate />
      </ul>
     )

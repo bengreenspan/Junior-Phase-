@@ -165,21 +165,13 @@ app.get('/api/students', async(req, res, next)=> {
 });
 
   
-const Campus = conn.define('campus', {  
-  id: {
-    primaryKey: true,
-    type: UUID,
-    defaultValue: UUIDV4
-},
-campusName: {
-  type: STRING,
-  allowNull: false,
-  validate: {
-    notEmpty: true,
+  const Campus = conn.define('campus', {  
+    id: {
+      primaryKey: true,
+      type: UUID,
+      defaultValue: UUIDV4
   },
-  unique : true
-},
-campusAddress: {
+  campusName: {
     type: STRING,
     allowNull: false,
     validate: {
@@ -187,23 +179,28 @@ campusAddress: {
     },
     unique : true
   },
-campusImageURL : {
-  type: STRING,
-  defaultValue: 'https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-},
-description: {
-type: TEXT
-},
-  });
-
+  campusAddress: {
+      type: STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+      unique : true
+    },
+  campusImageURL : {
+    type: STRING,
+    defaultValue: 'https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
+  },
+  description: {
+  type: TEXT
+  },
+    });
 
 
 Student.belongsTo(Campus);
 Campus.hasMany(Student)
 
-
-const syncAndSeed = async()=> {
-  await conn.sync({ force: true });
+const syncAndSeed = async()=> {await conn.sync({ force: true });
 
 //schools
 const Blue_Mountain_State = await Campus.create({
@@ -212,7 +209,6 @@ const Blue_Mountain_State = await Campus.create({
   campusImageURL: 'https://cdn3.sportngin.com/attachments/photo/3827/8377/BMS-Goats-Logo.jpg',
   description: 'Blue Mountain State, and its football team, the "Mountain Goats" are not known for their academics '
 });
-  
   
 const South_Harmon_Institute_of_Technology = await Campus.create({
   campusName: 'South Harmon Institute of Technology', 
@@ -241,13 +237,6 @@ const East_Great_Falls = await Campus.create({
   campusImageURL: 'https://upload.wikimedia.org/wikipedia/commons/6/69/Great_Falls_High_School_Historic_District_%282013%29_-_Cascade_County%2C_Montana.png',
   description: 'God bless the internet.'
 });
-
-// const UCONN = await Campus.create({
-//   campusName: 'University of Connecticut', 
-//   campusAddress: '2131 Hillside Road, Unit 3088 Storrs, CT 06269',
-//   campusImageURL: 'https://dfcby4322olzt.cloudfront.net/wp-content/uploads/2016/06/UConn-aerial.jpg',
-//   description: 'Go Huskys'
-// });
 
 //students
 
@@ -295,24 +284,6 @@ const bartleby = await Student.create({
   gpa: 4.0,
   campusId: South_Harmon_Institute_of_Technology.id
 });
-
-// const cam = await Student.create({ 
-//   name: 'Cameron', 
-//   lastName: 'Sugrue', 
-//   email:'cameronsugrue@uconn.edu', 
-//   imageURL : 'https://akns-images.eonline.com/eol_images/Entire_Site/2021717/rs_1024x759-210817125949-1024-Justin-Long-Accepted-LT-81721-shutterstock_editorial_1567277a.jpg?fit=around%7C1024:759&output-quality=90&crop=1024:759;center,top',
-//   gpa: 3.0,
-//   campusId: UCONN.id
-// });
-
-// const nate = await Student.create({ 
-//   name: 'Nathan', 
-//   lastName: 'Gallagher', 
-//   email:'nathangallagher@shit.edu', 
-//   imageURL : 'https://akns-images.eonline.com/eol_images/Entire_Site/2021717/rs_1024x759-210817125949-1024-Justin-Long-Accepted-LT-81721-shutterstock_editorial_1567277a.jpg?fit=around%7C1024:759&output-quality=90&crop=1024:759;center,top',
-//   gpa: 3.0,
-//   campusId: UCONN.id
-// });
 };
 
 init();

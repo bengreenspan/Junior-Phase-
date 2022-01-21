@@ -121,11 +121,7 @@ const updateCampus = (campus, history)=> {
 };
 
 
-
-const refreshPage = ()=> {
-  window.location.reload();
-}
-
+const refreshPage = ()=> {window.location.reload();}
 const store = createStore(reducer, applyMiddleware(thunk));
 
 export default store;
