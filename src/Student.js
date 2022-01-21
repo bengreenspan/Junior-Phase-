@@ -10,19 +10,26 @@ return 'Sorry the Student you are looking for is unreachable';
     }
     return (
     <ul>
-        <h1>{student.name}</h1>
-          <img src={student.imageURL} width='100' height='100'></img>
-              <h4> {student.name} {student.lastName}   
+      <div id='singlestudent'>
+        <h1>{student.name} {student.lastName}</h1>
+          <img src={student.imageURL} width='150' height='150'></img>
+              <h4> <h3>{student.name} attends: </h3>
                 <div>{student.campus ? 
                 <Link to={`/campuses/${student.campus.id}`}>
-                  attends {student.campus.campusName}</Link > 
-                  : 'Is looking to transfer'}
+                   {student.campus.campusName}</Link > 
+                  : 'Community College, and is looking to reapply next fall.'}
                 </div>
             </h4>
-          <pre> Contact: {student.email} </pre>
-          <pre> Current gpa is {student.gpa}</pre>
-        <h3>Change student details</h3>
+          <h4> Contact: {student.email} </h4>
+          <h4> GPA: {student.gpa}</h4>
+          </div>
+          <div id='enroll'>
+            <div id='studentform'>
+        <h4>Edit</h4> &nbsp;&nbsp;
+
       <StudentUpdate history={history} student={student}/>
+      </div>
+      </div>
     </ul>
     )
 }

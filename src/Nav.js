@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 const Nav = ({students, campuses, location: { pathname }  }) => {
     return (
         <>
-            <h4>
+            <h4 id='header'>
                 Zovio Campus Enrollment Portal
             </h4>
         <nav>

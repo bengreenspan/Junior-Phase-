@@ -6,21 +6,21 @@ import CampusCreate from './CampusCreate';
 
 const Campuses = ({campuses, destroy}) => {
     return ( 
-        <ul>
+        <ul id='students-list'>
            {!!campuses.length ? '': 'All classes have been postponed due to COVID-19 restrictions, add schools with mask mandates to continue.'}
             {
               campuses.map(campus => {
               return(
                     <li key={ campus.id}>
                        <Link to={`/campuses/${campus.id}`} > {campus.campusName} </Link >&nbsp; 
-                          {!!campus.students ? `Total Enrollment is ${campus.students.length}` 
+                          {!!campus.students ? `Class size is ${campus.students.length}` 
                          : 'Total Enrollment is 0'}
                        <button onClick={()=> destroy(campus)}>Unaccredit</button> 
                     </li>
               );
             })
           }    
-    <h4>Create education</h4>
+    <h4>Charter an institute of higher learning:</h4>
      <CampusCreate />
      </ul>
     )

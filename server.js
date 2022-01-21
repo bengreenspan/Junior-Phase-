@@ -244,7 +244,7 @@ const thad = await Student.create({
   name: 'Thad', 
   lastName:'Castle', 
   email:'tcastle1@bms.edu', 
-  imageURL : 'https://i.pinimg.com/originals/9b/39/72/9b397209ad34511cb2e5cba3bbd30544.png',
+  imageURL : 'https://w7.pngwing.com/pngs/600/652/png-transparent-alan-ritchson-blue-mountain-state-t-shirt-thad-castle-alex-moran-t-shirt-tshirt-television-jersey.png',
   gpa: 0.2,
   campusId: Blue_Mountain_State.id
 });
@@ -262,7 +262,7 @@ const steve = await Student.create({
   name: 'Steve', 
   lastName:'Stifler',  
   email:'stifler70@hotmail.com', 
-  imageURL : 'https://static.wikia.nocookie.net/americanpie/images/b/b7/Images.jpg/revision/latest/scale-to-width-down/175?cb=20120525131526',
+  imageURL : 'https://i.imgflip.com/fqi98.jpg',
   gpa: 2.5,
   campusId: East_Great_Falls.id
 });
@@ -271,7 +271,7 @@ const otter = await Student.create({
   name: 'Otter', 
   lastName:'Stratton', 
   email:'EricStratton@gmail.com', 
-  imageURL : 'http://1.bp.blogspot.com/-iC7v3FZzvuk/VToSMQnLqUI/AAAAAAAARLo/gZdqg-ZiWGE/s1600/AnimalHouse-Otter-Defense.jpg',
+  imageURL : 'https://blogs.loc.gov/now-see-hear/files/2022/03/otter2-1.jpg',
   gpa: 1.6,
   campusId: Faber_College.id
 });

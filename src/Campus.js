@@ -13,20 +13,23 @@ const Campus = ({updateStudent, campuses, match: {params: {id}}}) => {
         <ul>
            <h1>{campus.campusName}</h1>
             <img src={campus.campusImageURL} width='200' height='200'></img>
-              <h2> located at {campus.campusAddress} </h2>
-              <h3> {campus.description} </h3>
-              <h4> Enrollees</h4>
-           {campus.students.length ? campus.students.map(student => {
-              return(
-                <li key={ student.id}>
-                    <Link to={`/students/${student.id}`} >
-                   {student.name} 
-                   </Link > 
-                   <button onClick={()=> updateStudent({...student, campusId: null}) }>Unaccredit</button> 
-                </li>
-              );
-            })
-          : `${campus.campusName} needs a better recruiting department`}   
+              <h2> Located at:</h2>
+              <h3>{campus.campusAddress} </h3>
+              <h2>Motto:</h2>
+              <h4> {campus.description} </h4>
+              <h4> Enrollees:</h4>
+                {campus.students.length ? campus.students.map(student => {
+                    return(
+                      <li key={ student.id}>
+                          <Link to={`/students/${student.id}`} >
+                        {student.name} 
+                        </Link > 
+                        &nbsp; 
+                        <button onClick={()=> updateStudent({...student, campusId: null}) }>Send abroad</button> 
+                      </li>
+                    );
+                  })
+                : `${campus.campusName} needs a better recruiting department`}   
           <h3>Change campus details</h3>  
             <CampusUpdate history={history} campus={campus}/>
      </ul>

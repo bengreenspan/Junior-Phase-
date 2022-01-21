@@ -6,11 +6,11 @@ import StudentCreate from "./StudentCreate"
 
 const Students = ({students, destroy}) => {
     return (
-      <ul>
+      <ul id='students-list'>
         {students.length ? '': 'All students got sick! Add more below'}
           {students.map(student => {
             return(
-              <li key={ student.id}>
+              <li key={ student.id} > 
                 <Link to={`/students/${student.id}`} >
                    {student.name} 
                     </Link >  attends &nbsp;   
@@ -23,8 +23,9 @@ const Students = ({students, destroy}) => {
               );
             })
           }    
-        <h4>Enroll a student</h4>
+        <h4 id='enroll-header'>Enroll a student
       <StudentCreate />
+      </h4>
      </ul>
     )
 }
