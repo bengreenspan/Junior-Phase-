@@ -111,7 +111,8 @@ app.get('/api/students', async(req, res, next)=> {
       app.listen(port, ()=> console.log(`listening on port ${port}`));
     }
     catch(ex){
-      next(ex);
+
+      console.log(ex)
     }
   }
 
