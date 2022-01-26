@@ -120,6 +120,10 @@ app.get('/api/students', async(req, res, next)=> {
   const Sequelize = require('sequelize');
   const { UUID, UUIDV4, STRING, TEXT, DECIMAL } = Sequelize;
 
+  const config = {
+    logging: false
+  };
+
   if(process.env.DATABASE_URL){
     config.dialectOptions = {
       ssl: {
@@ -127,7 +131,7 @@ app.get('/api/students', async(req, res, next)=> {
       }
     };
   }
-  
+
   const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/juniordb');
 
 
