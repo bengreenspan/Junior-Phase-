@@ -110,6 +110,7 @@ const updateStudent = (student, history)=> {
   return async(dispatch)=> {
   const updatedStudent = (await axios.put(`/api/students/${student.id}`, student)).data;
   dispatch(_updateStudent(updatedStudent));
+  history.push(`/`)
   };
 };
 
