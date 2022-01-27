@@ -304,6 +304,19 @@ const bartleby = await Student.create({
   gpa: 4.0,
   campusId: South_Harmon_Institute_of_Technology.id
 });
+
+const nate = await Student.create({ 
+  name: 'Nathan', 
+  lastName: 'Gallagher', 
+  email:'ngallagher@firsteagle.gov', 
+  imageURL : 'https://images.barrons.com/im-424346?width=639&size=1.5',
+  gpa: 3.2,
+  campusId: South_Harmon_Institute_of_Technology.id
+});
+
+
 };
+
+
 
 init();
