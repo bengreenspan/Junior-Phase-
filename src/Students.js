@@ -7,7 +7,7 @@ import StudentCreate from "./StudentCreate"
 const Students = ({students, destroy}) => {
     return (
       <ul id='students-list'>
-        {students.length ? '': 'All students got sick! Add more below'}
+        {students.length ? '': 'All students got sick. Add more below'}
           {students.map(student => {
             return(
               <li key={ student.id} > 
