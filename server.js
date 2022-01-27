@@ -120,19 +120,25 @@ app.get('/api/students', async(req, res, next)=> {
   const Sequelize = require('sequelize');
   const { UUID, UUIDV4, STRING, TEXT, DECIMAL } = Sequelize;
 
-  const config = {
-    logging: false
-  };
 
-  if(process.env.DATABASE_URL){
-    config.dialectOptions = {
-      ssl: {
-        rejectUnauthorized: false
-      }
-    };
+  let conn;
+  if(process.env.DATABASE_URL) {
+    conn = new Sequelize(process.env.DATABASE_URL, {
+          dialectOptions: {
+              ssl: {
+                require: true,
+                rejectUnauthorized: false
+              }
+            }
+      });
+  } else {
+    conn = new Sequelize('postgres://localhost:5432/juniordb');
   }
 
-  const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/juniordb');
+
+
+
+  // const conn = new Sequelize(process.env.DATABASE_URL || 'postgres://localhost/juniordb');
 
 
   const Student = conn.define('student', {
